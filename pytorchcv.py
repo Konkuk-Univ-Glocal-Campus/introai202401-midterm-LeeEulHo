@@ -16,7 +16,7 @@ import zipfile
 
 default_device = 'cuda' if torch.cuda.is_available() else 'cpu' #CPU or CUDA(GPU) 사용 여부 선택 코드
 
-# load_mnist data를 가져오는 방식인데, Fashion_mnist를 가져오는 방식으로 새로 만들어야 함. (1)
+# load_mnist data를 가져오는 함수
 def load_mnist(batch_size=64):
     builtins.data_train = torchvision.datasets.MNIST('./data',
         download=True,train=True,transform=ToTensor())
@@ -25,7 +25,7 @@ def load_mnist(batch_size=64):
     builtins.train_loader = torch.utils.data.DataLoader(data_train,batch_size=batch_size)
     builtins.test_loader = torch.utils.data.DataLoader(data_test,batch_size=batch_size)
 
-# 이거 수정해서 새로 만들것.
+# Fashion_mnist 데이터를 불러오는 함수 재정의
 def load_Fasion_mnist(batch_size=64):
     builtins.data_train = torchvision.datasets.FashionMNIST('./data',
         download=True,train=True,transform=ToTensor())
@@ -55,6 +55,8 @@ def train_epoch(net,dataloader,lr=0.01,optimizer=None,loss_fn = nn.NLLLoss()):
         count+=len(labels)
     return total_loss.item()/count, acc.item()/count #총 loss와 총 acc를 출력해냄
 
+# 학습이 진행된 모델에 검증 데이터를 통해 검증을 진행하는 함수
+
 def validate(net, dataloader,loss_fn=nn.NLLLoss()):
     net.eval() #학습과정 비활성화
     count,acc,loss = 0,0,0
@@ -67,6 +69,8 @@ def validate(net, dataloader,loss_fn=nn.NLLLoss()):
             acc += (pred==lbls).sum()
             count += len(labels)
     return loss.item()/count, acc.item()/count
+
+# 모델을 학습시키는 함수
 
 def train(net,train_loader,test_loader,optimizer=None,lr=0.01,epochs=10,loss_fn=nn.NLLLoss()):
     optimizer = optimizer or torch.optim.Adam(net.parameters(),lr=lr)
@@ -81,7 +85,7 @@ def train(net,train_loader,test_loader,optimizer=None,lr=0.01,epochs=10,loss_fn=
         res['val_acc'].append(va)
     return res
 
-# 중간 중간 결과를 보여주는 과정
+# 중간 결과를 보여주는 함수
 
 def train_long(net,train_loader,test_loader,epochs=5,lr=0.01,optimizer=None,loss_fn = nn.NLLLoss(),print_freq=10):
     optimizer = optimizer or torch.optim.Adam(net.parameters(),lr=lr)
