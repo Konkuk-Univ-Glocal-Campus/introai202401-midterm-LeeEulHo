@@ -111,11 +111,11 @@ def plot_results(hist):
     plt.figure(figsize=(15,5))
     plt.subplot(121)
     plt.plot(hist['train_acc'], label='Training acc')
-    plt.plot(hist['test_acc'], label='Validation acc')
+    plt.plot(hist['test_acc'], label='Testing acc')
     plt.legend()
     plt.subplot(122)
     plt.plot(hist['train_loss'], label='Training loss')
-    plt.plot(hist['test_loss'], label='Validation loss')
+    plt.plot(hist['test_loss'], label='Testing loss')
     plt.legend()
 
 def plot_convolution(t,title=''):
@@ -179,7 +179,6 @@ def common_transform():
     return trans
 
 # 이건 안씀
-
 def load_cats_dogs_dataset():
     if not os.path.exists('data/PetImages'):
         with zipfile.ZipFile('data/kagglecatsanddogs_5340.zip', 'r') as zip_ref:
