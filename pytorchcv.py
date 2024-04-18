@@ -27,9 +27,9 @@ def load_mnist(batch_size=64):
 
 # 이거 수정해서 새로 만들것.
 def load_Fasion_mnist(batch_size=64):
-    builtins.data_train = torchvision.datasets.MNIST('./data',
+    builtins.data_train = torchvision.datasets.FashionMNIST('./data',
         download=True,train=True,transform=ToTensor())
-    builtins.data_test = torchvision.datasets.MNIST('./data',
+    builtins.data_test = torchvision.datasets.FashionMNIST('./data',
         download=True,train=False,transform=ToTensor())
     builtins.train_loader = torch.utils.data.DataLoader(data_train,batch_size=batch_size)
     builtins.test_loader = torch.utils.data.DataLoader(data_test,batch_size=batch_size)
