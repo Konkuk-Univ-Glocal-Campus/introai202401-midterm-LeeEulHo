@@ -34,7 +34,6 @@ def load_Fasion_mnist(batch_size=64):
     builtins.train_loader = torch.utils.data.DataLoader(data_train,batch_size=batch_size)
     builtins.test_loader = torch.utils.data.DataLoader(data_test,batch_size=batch_size)
 
-
 # train_epoch
 # 0.01은 default 값으로 처음 epoch를 통해 진행됨.
 # optimizer는 Adam을 기본적으로 사용함.
